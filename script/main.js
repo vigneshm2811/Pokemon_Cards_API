@@ -5,10 +5,14 @@ const generateBtn =document.getElementById("generate");
 
 const pokeData = (data)=>{
     let type=data.types[0].type.name
-console.log(type);
+// console.log(type);
 let className= colorCard(type);
+// console.log(className[1])
+let bodyBg =document.querySelector("body")
+bodyBg.style.background =className[1];
+
 document.querySelector(".container").innerHTML = `
-<figure class="card ${className}">
+<figure class="card ${className[0]}">
 <div class="card__image-container ">
   <img src="${data.sprites.other.dream_world.front_default}" alt="${data.name}" class="card__image">
 </div>
@@ -68,43 +72,56 @@ ${data.types[0].type.name}
 
 
 function colorCard(type){
-    let temp
+    let temp =[]
     switch(type){
         case "water":
-           temp ="card--water" 
+           temp[0] ="card--water"
+           temp[1] = "linear-gradient(120deg, #1cb5e079 0%, #00085196 100%)"
            break;
         
         case "grass":
-            temp ="card--grass" 
+            temp[0] ="card--grass" 
+            temp[1] = "linear-gradient(140deg, rgba(197, 218, 61, 0.548) 0%, rgba(110, 127, 14, 0.541) 69%, rgba(39, 80, 9, 0.582) 100%)"
             break;
         case "electric":
-            temp ="card--electric" 
+            temp[0] ="card--electric"
+            temp[1] = "linear-gradient(90deg, rgba(255, 221, 0, 0.562) 34%, rgba(231, 255, 153, 0.61)83%)"
+
             break;
         case "fire":
-            temp ="card--fire" 
+            temp[0] ="card--fire"
+            temp[1] = "linear-gradient(0deg, rgba(199, 23, 0, 0.493) 10%, rgba(252, 194, 69, 0.479) 100%)"
             break;
-        
+            
         case "poison":
-            temp ="card--dark" 
+            temp[0] ="card--dark"
+            temp[1] = "linear-gradient(20deg, rgba(25, 25, 25, 0.507) 0%, rgba(16, 11, 50, 0.671) 33%, rgba(92, 2, 73, 0.507) 100%)"
             break;
-        case "fairy":
-            temp ="card--fairy" 
-            break;
+            
+            case "fairy":
+              temp[0] ="card--fairy" 
+              temp[1] = "linear-gradient(45deg, rgba(255, 230, 240, 0.514) 0%, rgba(255, 197, 224, 0.527) 3rgba(255, 166, 185, 0.582), 71%, rgba(255, 138, 150, 0.5) 100%)"
+          break;
+
         case "psychic":
-            temp ="card--psychic" 
+            temp[0] ="card--psychic" 
+            temp[1] = "linear-gradient(140deg, rgba(255, 167, 249, 0.486) 0%, rgba(255, 44, 195, 0.404) 39%, rgba(255, 227, 167, 0.459) 100%)"
             break;
+
         case "dark":
-            temp ="card--dark" 
+            temp[0] ="card--dark" 
+            temp[1] = "linear-gradient(20deg, rgba(25, 25, 25, 0.507) 0%, rgba(16, 11, 50, 0.671) 33%, rgba(92, 2, 73, 0.507) 100%)"
             break;
-        case "ice":
-            temp ="card--ice" 
+            
+            case "ice":
+              temp[0] ="card--ice" 
+              temp[1] = "linear-gradient(230deg, rgba(202, 234, 246, 0.527) 0%, rgba(160, 234, 241, 0.521) 46%, rgba(111, 183, 235, 0.534) 100%)"
             break;
 
            default:
-            temp ="card--normal"
+            temp[0] ="card--normal"
+            temp[1] = "linear-gradient(110deg, #fdbb2d73 0%, #3a1c7175 100%)"
             break;
-
-
     }
     return temp
 
@@ -115,7 +132,7 @@ function randomPokemons(){
     fetch(newUrl)
     .then(res=>res.json())
     .then(data =>{
-        console.log(data);
+        // console.log(data);
         pokeData(data);
     })
 }
