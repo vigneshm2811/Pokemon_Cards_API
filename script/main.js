@@ -2,7 +2,9 @@
 const url = "https://pokeapi.co/api/v2/pokemon/"
 
 const generateBtn =document.getElementById("generate");
+let cards = document.getElementsByClassName("card"); 
 
+// function to display the card of the pokemon
 const pokeData = (data)=>{
     let type=data.types[0].type.name
 // console.log(type);
@@ -12,45 +14,45 @@ let bodyBg =document.querySelector("body")
 bodyBg.style.background =className[1];
 
 document.querySelector(".container").innerHTML = `
-<figure class="card ${className[0]}">
+<figure class="card  ${className[0]}">
 <div class="card__image-container ">
-  <img src="${data.sprites.other.dream_world.front_default}" alt="${data.name}" class="card__image">
+  <img src="${data?.sprites?.other?.dream_world?.front_default}" alt="${data?.name}" class="card__image">
 </div>
 
 <figcaption class="card__caption">
   <h1 class="card__name">${data.name}</h1>
 
   <h3 class="card__type">
-${data.types[0].type.name}
+${data?.types[0]?.type?.name}
   </h3>
 
   <table class="card__stats">
     <tbody>
       <tr>
         <th>HP</th>
-        <td>${data.stats[0].base_stat}</td>
+        <td>${data?.stats[0]?.base_stat}</td>
       </tr>
       <tr>
         <th>Attack</th>
-        <td>${data.stats[1].base_stat}</td>
+        <td>${data?.stats[1]?.base_stat}</td>
       </tr>
 
       <tr>
         <th>Defense</th>
-        <td>${data.stats[2].base_stat}</td>
+        <td>${data?.stats[2]?.base_stat}</td>
       </tr>
 
       <tr>
         <th>Height</th>
-        <td>${data.height}</td>
+        <td>${data?.height}</td>
       </tr>
       <tr>
         <th>Weight</th>
-        <td>${data.weight}</td>
+        <td>${data?.weight}</td>
       </tr>
       <tr>
         <th>Speed</th>
-        <td>${data.stats[5].base_stat}</td>
+        <td>${data?.stats[5]?.base_stat}</td>
       </tr>
     </tbody>
   </table>
@@ -58,11 +60,11 @@ ${data.types[0].type.name}
   <div class="card__abilities">
     <h4 class="card__ability">
       <span class="card__label">Ability</span>
-     ${data.abilities[0].ability.name}
+     ${data?.abilities[0]?.ability?.name}
     </h4>
     <h4 class="card__ability">
       <span class="card__label">Hidden Ability</span>
-      ${data.abilities[1].ability.name}
+      ${data?.abilities[1]?.ability?.name}
     </h4>
   </div>
 </figcaption>
@@ -70,7 +72,7 @@ ${data.types[0].type.name}
 `
 }
 
-
+// function generating background and card colors belongs to the pokemon type
 function colorCard(type){
     let temp =[]
     switch(type){
@@ -126,15 +128,19 @@ function colorCard(type){
     return temp
 
 }
+// Function to generate random pokemon datas
 function randomPokemons(){
-    let random = Math.floor(Math.random()*151);
+    let random = Math.floor(Math.random()*1017);
     let newUrl = url+random;
+
     fetch(newUrl)
     .then(res=>res.json())
     .then(data =>{
-        // console.log(data);
         pokeData(data);
     })
 }
+
 window.addEventListener("load",randomPokemons);
-generateBtn.addEventListener("click",randomPokemons);
+generateBtn.addEventListener("click",()=>{
+  randomPokemons();
+});
